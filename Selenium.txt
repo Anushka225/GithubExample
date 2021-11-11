@@ -1,0 +1,286 @@
+Selenium:
+What is Selenium:
+----------------
+>It is Tool Which is dedicated for Web application testing
+>It is Functional Testing Tool.
+>It is best suited for Regression Testing
+>Free
+>Open Source: Source code is available on internet
+>It is Platform independant (It Supports Multiple OS Linux, MAC, Windows)
+>It Supports Multiple Browsers i.e Chrome, Firefox, Opera, IE browser etc.
+>It Supports Multiple Programming Language i.e Java, C#, ruby, Python etc.
+
+Type of Application:
+1.Console Based  which used CMD
+2.Desktop Based Application: Which needs installation on Every System
+3.Web Application : Application Which needs url(like http://google.com) & they are 		    developed using HTML
+4.Mobile Application: That Needs installation in Every Mobile
+
+
+Selenium Suite:
+--------------
+1.Selenium IDE
+	>It is available as Firefox & Chrome Plug-in
+	>It Supports Record(It automatically Writes Script) & PlayBack(For Playing/Executing recorded 	Script)
+	>It is Good Tool for Person who is wishing to start with Automation Testing 
+	>Easy to Learn & GUI is also Easy
+
+	DisAdvantage:
+	1.It Supports only 2 browser (Chrome & Firefox)
+	2.It does not Support of Programming Language Hence Code Re-usability is not there Hence It is
+	not good for Writing Detail Scripts
+	3.data base Testing not possible
+	4.Proper Sharable report is not generated
+	5.Data Reading is not Supported from Excel File
+	6.Only 3 Columns are not Sufficient for Detail Testing
+
+2.Selenium RC | Selenium 1.0 (Selenim RC is Outdated since It is Slow)
+		Selenium RC was Slow since
+		1.RC Server needed as Middle Man in Between Eclipse & Browser
+                  which adds a delay in execution
+		2.RC Server needed to be Started & Stopped EveryTime Manually
+                  which also adds delay
+	
+3.Selenium WebDriver | Selenium 2.0 |Selenium 3.0 |Selenium 4.0
+	>Both Supports Multiple Browser testing (like Chrome, Firefox, Opera, IE etc.)
+	>Both Supports Multiple Programming Language i.e Java, ruby, Python, etc.
+	>Both Are Test Designing(Writing Script) + Test Execution Tool.
+	But Selenim RC is Outdated since It was Slow & WebDriver is Fast
+
+	Till Selenium WebDriver Only One System is Sufficient	
+
+4.Selenium Grid:
+	>In this multiple Systems are involve. One Master System(HUB) & Multiple Slave system(Node) 	are involve.
+	>Test Execution will be Controlled from Master System
+	>It is used for various Browser & OS combination like Firefox on MAc, Firefox on Windows, 	Firefox on Linux etc.
+	>With the help of Paralle; Testing Execution time is minimized (In Less Time More Execution 	happens)
+	>It is Just Test Execution (Test Scripts are written in the WebDriver Only)
+	>Here, Multiple Machine + Multiple Browser Testing Happens.
+	 
+
+
+Writing Test Case Means you did planning for Testing
+
+Planned Test case > Test Script (So that Tool can understand It)
+Like Selenium understand Java so your Test cases should be converted into 
+Language of tool so that tool can underStand What you have given instruction
+
+System configuration needed for selenium webdriver:
+1.JDK
+2.Eclipse
+3.Selenium language binder
+      selenium library available for java,ruby,python
+      selenium java libraries are needed 
+4.Drivers for every browser is needed
+           chrome>chromedriver.exe
+           firefox>geckodriver.exe
+
+The path to the driver executable must be set by the webdriver.chrome.driver system property
+
+Element locators:
+
+These are Unique peoperties by which selenium is able to identify/find object on web page
+1.id
+2.name
+3.linkText
+4.css
+5.Xpath
+
+synchronization problem::
+in this there is mismatch between speed of two things
+1.selenium
+2.AUT(OrangeHRM)
+
+Whwn to automation:
+1.There is re usable & repitable test case
+   -smoke testing
+   -data driven testing:
+       it is process in which we repeat same steps with different set of data.
+   -compatibility testing
+       running same test case with different browser
+
+Why to do automation:
+-speed is more
+-accuracy is more
+-less human errors
+-night time also can be utilized
+-reliable
+-consistent
+
+
+
+what is css:
+it is used for controlling font,ssize,allignment,color etc
+css atttributes/properties also can be used for locating object
+
+1.css with id
+   tagname#id
+2.css with name/type/value/placeholder/anyproperty
+   tagname[name/type/value/placeholder/anyproperty='value of that property]
+3.css with classname
+tagname.className
+
+-------------------------------------------------
+working with radio button:
+
+Thread.sleep()>not recommended
+you should use implicit or explicit wait given by selenium
+
+implicit wait:
+>implicit wait decalred once at begning & after that it is applicable for all below objects
+>it only waits for visiblity of object     
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));//wait max 15 nsec
+Explicit Wait:
+>it is used multiple times for multiple condition/object
+>here we explicitly give some condition or ask webdriver to wait
+>it can wait on various conditions like visiblity ,invisibility,alert,frame,title etc.
+
+both takes only desired time for waiting
+
+iframe:
+always starts with tag as 'iframe' & it is used to show content from multiple website /pages
+
+Task:
+open Rediff.com
+search 'YesBank ltd' in Enter Company or MF field
+search
+switch to second tab & print title  & close it.
+=>
+public static void main(String[] args) throws Exception {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Bhajan\\Desktop\\SelJars\\chromedriver_win32\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.rediff.com/");
+        driver.switchTo().frame("moneyiframe"); // Using through id or name
+ 
+        driver.findElement(By.name("query")).sendKeys("YES BANK LTD");
+        driver.findElement(By.name("query")).sendKeys(Keys.ENTER);
+        Set<String> allWin=driver.getWindowHandles();  // It will get All Windows ID
+        List<String> allID = new ArrayList<>(allWin); // Convering Set into String
+ 
+        driver.switchTo().window(allID.get(1));  // Switching to Second Window
+        System.out.println(driver.getTitle());   // Printing title 
+        driver.close();    //Closing the Highlighted Tab
+ 
+        Thread.sleep(2000);
+        driver.switchTo().window(allID.get(0));  //Switching to Parent Win
+        System.out.println(driver.getTitle());   //Printing title of Parent Window
+        driver.quit();   //Closing Main Window
+    }
+--------------------------------------------------------------------------------------------
+webdriver is interface> only method names are present & no body of method is present
+chromedriver is a class which implements webdriver 
+chrome driver is child of javascripexecuter & takesScreenshot(Parent)
+Parent p=new child approach hides child specific method(extra functions gets ide here & only common method is visible)
+
+ata driven testing:
+       it is process in which we repeat same steps with different set of data.
+  e.g. daily 100 sms is li,it & on 101th error is expected
+then you need to send 100 sms & 101th error is expected
+
+performing same thing with different set of data is called as data driven testing
+
+test script                                     data-source
+test script                  apache POI          excel(.net)
+test script                  <jdbc>                    database
+test script                                      dataprovider of testNG
+
+
+next step is download apache poi since our data will be stored mostly in excel
+
+Apache POI supports both extension of excel file .xls & .xlsx
+read workbook>read worksheet>read cells(row,column)
+
+----------------------------------------------------------------------------------------
+TestNg:
+it is framework(set of rules for having good outcome)
+
+Test automation framework:
+-reusable classes and methods and object repository
+
+Adv:
+1.loc woill be less
+2.it creates reusable classes which can be used at multiple places
+3.it hides complexity of progeamme and gives easy method for calling
+
+types of framework:
+1.user defined
+     1.data driven framework
+     2.keyword driven framework
+     3.hybrid(combination of two or more framework)
+2.predefines framework
+     1.testng
+     2.junit
+     3.cucumber
+
+Test Ng:(ng means next generation)
+-by default webdriver do not have mechanism for generating 
+any reports . so testng gives power of generating reports.
+-similar to testng we have Junit.advantages of testng over junit are:
+ adv testNg:
+1.parallel testing:(same can be executed simultaneously with two 
+or more browser or two or more instance of same browser can be created)
+2.Parallel testing is not avalable in Junit.
+3.test suite (collection of multiple test classes) can be created easily & classes 
+from different package also can be included.
+But in case of Junit Classes from other package can not be included 
+in Test Suite.
+4.meaningful annotation name is given.
+
+
+@dataprovider is used for storing data used for testing internally
+ in testng class itself
+
+
+link data provider with excel file copy the data from excel and store 
+data provider then do datadriventesting 
+
+
+==============================================================================================
+JUNIT:
+
+
+
+===============================================
+page object model:
+number of java classes should be equals to number of 
+pages available on website/application
+keep all objects property at top & respective actions/steps at the bottom
+wht(adv):
+1.easy to trace
+2.easy to change
+3.easy to maintain
+4.since re usable methods are made we can call those methods at any time
+
+
+Factory:
+Page object is not officially announced by selenium but page factory is 
+officially given by selenium
+
+Elements|object repository:
+it is single place where we keep all object property like xpath,css,name,linkText
+id etc so that tomorrow if any objects property is changed thren tester should feel
+easiness while doing changes(if tester does changes at one place then it should 
+reflect at all  other places where it has been used
+
+=============================================================================================
+What is MAVEN?
+>it is build management tool(combination of all classes into singlr unit)(create,update,edit build)
+>project management tool
+   since it gives template/architect to your project hence it will be consider
+    as project management tool
+>it manages all jars which is needed to your project
+      -selenium
+      -apache poi
+      -testng
+      -junit
+      -extent report(enhance reporting ability
+
+Extent Report:
+To enhance reporting capability of selenium extent report is used
+
+KeyWordDriven Framework:
+It is framework in which reusable actions/keywords ARE created for every step/Actions that you
+ perform on browser.This is created by sr. automation tester for easiness in 
+automation testing
+
+In background for every keyword corresponding methods/functions are created.
